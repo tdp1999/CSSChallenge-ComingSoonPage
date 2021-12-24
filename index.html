@@ -8,31 +8,95 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@300;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src="https://cdn.tailwindcss.com"></script>
+
 
     <title>Ping Coming Soon Page</title>
 
     <style>
+        /*
+        blue: 4F7DF3FF
+        Pale Blue: hsl(223, 100%, 88%) C2D3FFFF
+        Light Red: hsl(354, 100%, 66%) FF5263FF
+        Gray: hsl(0, 0%, 59%) 969696FF
+        Very Dark Blue: hsl(209, 33%, 12%) 151F29FF
+        */
         body {
             height: 100%;
             font-size: 16px;
             font-family: 'Libre Franklin', sans-serif;
         }
 
+        .fa {
+            padding: 8px;
+            font-size: 12px;
+            text-align: center;
+            text-decoration: none;
+            width: calc(1em + 16px + 2px);
+            color: #4F7DF3;
+            border-radius: 999px;
+            border: 1px solid #C2D3FFFF;
+        }
+
+        .fa:hover {
+            color: white;
+            background: #4F7DF3;
+        }
+
     </style>
 </head>
 <body>
-<div class="h-full min-h-screen mx-auto">
+<div class="h-full min-h-screen flex flex-col justify-center items-center pt-16 pb-8 px-8 text-center font-light
+            lg:max-w-lg lg:mx-auto">
+    <img src="images/logo.svg" alt="logo" class="w-14 lg:w-20 mb-10">
 
-    We are launching soon!
+    <h1 class="text-xl lg:text-4xl mb-3 text-[#969696FF]">We are launching <span class="font-bold text-black">soon!</span></h1>
+    <div class="text-xs lg:text-base mb-6">Subscribe and get notified</div>
+    <form id="form" class="mb-10 w-full lg:flex lg:">
+        <div class="mb-2 w-full lg:mb-0 lg:mr-3 relative">
+            <input id="email" type="email" placeholder="Your email address"
+                   class="w-full border border-[#C2D3FF] rounded-full py-3 px-8 text-xs focus:outline-none"
+            >
+            <small id="errorMessage" class="text-[10px] text-[#FF5263FF] italic mb-4 hidden
+                                            lg:absolute lg:left-6 lg:-bottom-2 lg:mb-0 translate-y-full">Please provide a valid
+                email address</small>
+        </div>
 
-    Subscribe and get notified
+        <button type="submit" class="w-full rounded-full shadow-xl py-3 bg-[#4F7DF3] text-xs text-white font-bold lg:basis-2/5">
+            Notify Me
+        </button>
+    </form>
 
-    Notify Me
+    <img src="images/illustration-dashboard.png" alt="illustration-dashboard" class="mb-4">
 
-    &copy; Copyright Ping. All rights reserved.
+    <div class="mt-auto">
+        <div>
+            <a href="#" class="fa fa-facebook"></a>
+            <a href="#" class="fa fa-twitter"></a>
+            <a href="#" class="fa fa-instagram"></a>
+        </div>
+        <div class="text-[10px] text-[#969696FF] mt-4">&copy; Copyright Ping. All rights reserved.</div>
+    </div>
 </div>
 
+<script>
+    const formD = document.querySelector('#form')
+    const input = document.querySelector('#email')
+    const errorMessage = document.querySelector('#errorMessage')
+    const re = /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
+    formD.addEventListener('submit', (e) => {
+        e.preventDefault()
+        if (!re.test(input.value)) {
+            input.classList.add('border-[#FF5263FF]')
+            errorMessage.classList.remove('hidden')
+        } else if (!errorMessage.classList.contains('hidden')) {
+            input.classList.remove('border-[#FF5263FF]')
+            errorMessage.classList.add('hidden')
+        }
+        console.log('form summited: ', input.value)
+    })
+</script>
 
 </body>
 </html>
